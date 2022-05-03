@@ -1,10 +1,14 @@
 package Accounts;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 abstract public class Account {
-//class with constructor + getters + setters
+
     private static int nrAccounts = 0;
     protected int ID;
     protected String IBAN;
@@ -22,12 +26,16 @@ abstract public class Account {
         this.IdClient = idClient;
     }
 
-    public static int getNrAccounts() {
-        return nrAccounts;
-    }
+    public Account(int ID, String IBAN, double balance, String  createDate, Integer idClient) throws ParseException {
+        this.ID = ID;
+        nrAccounts ++;
+        this.IBAN = IBAN;
+        this.balance = balance;
 
-    public static void setNrAccounts(int nrAccounts) {
-        Account.nrAccounts = nrAccounts;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Date date = sdf.parse(createDate);
+        this.createDate = sdf.getCalendar();
+        this.IdClient = idClient;
     }
 
     public int getID() {
@@ -69,4 +77,33 @@ abstract public class Account {
     public void setIdClient(Integer idClient) {
         IdClient = idClient;
     }
+
+
+    @Override
+    public String toString() {
+        return "Account" + '\n' +
+                "ID" + ID + '\n' +
+                "IBAN: " + IBAN + '\n' +
+                "Balance: " + balance + '\n' +
+                "Create Date: " + createDate.getTime() +
+                "Client Id: " + IdClient + '\n';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+       if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return ID == account.ID && Double.compare(account.balance, balance) == 0 && Objects.equals(IBAN, account.IBAN) && Objects.equals(createDate, account.createDate) && Objects.equals(IdClient, account.IdClient) ;
+   }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, IBAN, balance, createDate, IdClient);
+    }
+
+
+
+
+
 }

@@ -1,6 +1,9 @@
 package Accounts;
 
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class Deposit extends Account {
 
@@ -14,6 +17,25 @@ public class Deposit extends Account {
         this.gain = 0.2 * period;
     }
 
+    public Deposit(int ID, String IBAN, double balance, Integer idClient, String createDate, int period, double gain) throws ParseException, ParseException {
+        super(ID, IBAN, balance, createDate, idClient);
+        this.period = period;
+        this.gain = gain;
+    }
+    @Override
+    public double getBalance() {
+        Calendar currentDate = Calendar.getInstance();
+        if(currentDate.compareTo(createDate)%3 == 0)
+        {
+            setBalance(balance * gain);
+        }
+        return balance;
+    }
+
+    @Override
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
 
     public int getPeriod() {
         return period;
@@ -42,6 +64,21 @@ public class Deposit extends Account {
                 "Gain: " + gain + '\n' +
                 "Client Id: " + IdClient + '\n';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Deposit deposit = (Deposit) o;
+        return period == deposit.period;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), period);
+    }
+
 
 
 
