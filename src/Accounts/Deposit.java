@@ -10,18 +10,13 @@ public class Deposit extends Account {
     private int period;
     private double gain;
 
-    public Deposit(double balance, Integer idClient, int period)
-    {
-        super(balance, idClient);
-        this.period = period;
-        this.gain = 0.2 * period;
-    }
-
-    public Deposit(int ID, String IBAN, double balance, Integer idClient, String createDate, int period, double gain) throws ParseException, ParseException {
+    public Deposit(int ID, String IBAN, double balance, Calendar createDate, Integer idClient, int period, double gain) {
         super(ID, IBAN, balance, createDate, idClient);
         this.period = period;
         this.gain = gain;
     }
+
+
     @Override
     public double getBalance() {
         Calendar currentDate = Calendar.getInstance();

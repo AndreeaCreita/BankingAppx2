@@ -1,28 +1,26 @@
 package Accounts;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Current extends Account {
 
-    public Current(double balance, Integer idClient)
-    {
-        super(balance, idClient);
-    }
-    public Current(int ID, String IBAN, double balance, String createDate, Integer idClient) throws ParseException, ParseException {
+    public Current(int ID, String IBAN, double balance, Calendar createDate, Integer idClient) {
         super(ID, IBAN, balance, createDate, idClient);
     }
 
-    public String toString() {
-        return
-                "Current" + '\n' +
-                        "ID Account: " + ID + '\n' +
-                        "IBAN: " + IBAN + '\n' +
-                        "Balance: " + balance + '\n' +
-                        "Created at: " + createDate.getTime() + '\n' +
-                        "Client Id: " + IdClient + '\n';
-    }
 
+    @Override
+    public String toString() {
+        return "Current{" +
+                "ID=" + ID +
+                ", IBAN='" + IBAN + '\'' +
+                ", balance=" + balance +
+                ", createDate=" + createDate +
+                ", IdClient=" + IdClient +
+                '}';
+    }
 
     public void withdraw(double amount) {
     }

@@ -16,26 +16,12 @@ abstract public class Account {
     protected Calendar createDate;
     protected Integer IdClient;
 
-
-    public Account(double balance, Integer idClient)
-    {
-        this.ID = ++nrAccounts;
-        this.IBAN = "R012" + ID;
-        this.balance = balance;
-        this.createDate = Calendar.getInstance();
-        this.IdClient = idClient;
-    }
-
-    public Account(int ID, String IBAN, double balance, String  createDate, Integer idClient) throws ParseException {
+    public Account(int ID, String IBAN, double balance, Calendar createDate, Integer idClient) {
         this.ID = ID;
-        nrAccounts ++;
         this.IBAN = IBAN;
         this.balance = balance;
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        Date date = sdf.parse(createDate);
-        this.createDate = sdf.getCalendar();
-        this.IdClient = idClient;
+        this.createDate = createDate;
+        IdClient = idClient;
     }
 
     public int getID() {
